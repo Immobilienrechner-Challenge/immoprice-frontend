@@ -183,11 +183,11 @@
 
 			// Data initialization
 			// -----------------------------------------------
-			d3.csv("assets/data/data.csv", parseRow)
+			d3.csv("https://raw.githubusercontent.com/Immobilienrechner-Challenge/immoprice-frontend/main/assets/data/data.csv", parseRow)
 				.then(actions.prepareState)
 				.catch(sszvis.loadError);
 
-			d3.json("assets/json/switzerland.json")
+			d3.json("https://raw.githubusercontent.com/StatistikStadtZuerich/sszvis/master/geodata/ch_cantons.json")
 				.then(actions.prepareMapData)
 				.catch(sszvis.loadError);
 
