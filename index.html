@@ -54,7 +54,7 @@
 		<section id="one" class="wrapper style2 fullscreen fade-up">
 			<div class="inner">
 
-				<div id="sszvis-chart"></div>
+				<svg id="my_dataviz" width="800" height="600"></svg>
 
 				<h2>Ortschaft auswählen</h2>
 				<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat
@@ -111,147 +111,84 @@
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
 	<!-- SSZVIS Library -->
-	<script src="https://d3js.org/d3.v5.min.js"></script>
-	<script src="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
-	<script src="assets/js/sszvis.js"></script>
+	<script src="http://d3js.org/d3.v4.js"></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
 	<script>
-		(function (d3, topojson, sszvis) {
-			"use strict";
 
-			// Configuration
-			// -----------------------------------------------
+		// The svg
+		var svg = d3.select("svg"),
+			width = +svg.attr("width"),
+			height = +svg.attr("height");
 
-			var MAX_LEGEND_WIDTH = 320;
-			var queryProps = sszvis
-				.responsiveProps()
-				.prop("bounds", {
-					_: function _(width) {
-						var innerHeight = Math.min(sszvis.aspectRatio4to3(width), 400);
-						return {
-							bottom: 40,
-							height: innerHeight + 40,
-						};
-					},
+		// Map and projection
+		var path = d3.geoPath();
+		var projection = d3.geoMercator()
+			.scale(70)
+			.center([0, 20])
+			.translate([width / 2, height / 2]);
+
+		// Data and color scale
+		var data = d3.map();
+		var colorScale = d3.scaleThreshold()
+			.domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+			.range(d3.schemeBlues[7]);
+
+		// Load external data and boot
+		d3.queue()
+			.defer(d3.json, "http://github.com/Immobilienrechner-Challenge/data/raw/main/plz_verzeichnis_v2.geojson")
+			.defer(d3.csv, "http://raw.githubusercontent.com/Immobilienrechner-Challenge/immoprice-frontend/main/assets/data/data.csv",
+				function (d) { data.set(d.KantonNr, +d.Wert); })
+			.await(ready);
+
+		function ready(error, topo) {
+
+			let mouseOver = function (d) {
+				d3.selectAll(".Kanton")
+					.transition()
+					.duration(200)
+					.style("opacity", .5)
+				d3.select(this)
+					.transition()
+					.duration(200)
+					.style("opacity", 1)
+					.style("stroke", "black")
+			}
+
+			let mouseLeave = function (d) {
+				d3.selectAll(".Kanton")
+					.transition()
+					.duration(200)
+					.style("opacity", .8)
+				d3.select(this)
+					.transition()
+					.duration(200)
+					.style("stroke", "transparent")
+			}
+
+			// Draw the map
+			svg.append("g")
+				.selectAll("path")
+				.data(topo.features)
+				.enter()
+				.append("path")
+				// draw each country
+				.attr("d", d3.geoPath()
+					.projection(projection)
+				)
+				// set the color of each country
+				.attr("fill", function (d) {
+					d.total = data.get(d.id) || 0;
+					return colorScale(d.total);
 				})
-				.prop("legendWidth", {
-					_: function _(width) {
-						return Math.min(width / 2, MAX_LEGEND_WIDTH);
-					},
-				});
+				.style("stroke", "transparent")
+				.attr("class", function (d) { return "Country" })
+				.style("opacity", .8)
+				.on("mouseover", mouseOver)
+				.on("mouseleave", mouseLeave)
+		}
 
-			function parseRow(d) {
-				return {
-					geoId: sszvis.parseNumber(d["KantonNr"]),
-					value: sszvis.parseNumber(d["Wert"]),
-				};
-			}
-
-			var vAcc = sszvis.prop("value");
-
-			// Application state
-			// -----------------------------------------------
-			var state = {
-				data: null,
-				mapData: null,
-				valueDomain: [0, 0],
-			};
-
-			// State transitions
-			// -----------------------------------------------
-			var actions = {
-				prepareState: function prepareState(data) {
-					state.data = data;
-					state.valueDomain = [0, d3.max(state.data, vAcc)];
-
-					render(state);
-				},
-
-				prepareMapData: function prepareMapData(topo) {
-					state.mapData = {
-						features: topojson.feature(topo, topo.objects.cantons),
-						borders: topojson.mesh(topo, topo.objects.cantons),
-					};
-
-					render(state);
-				},
-
-				resize: function resize() {
-					render(state);
-				},
-			};
-
-			// Data initialization
-			// -----------------------------------------------
-			d3.csv("https://raw.githubusercontent.com/Immobilienrechner-Challenge/immoprice-frontend/main/assets/data/data.csv", parseRow)
-				.then(actions.prepareState)
-				.catch(sszvis.loadError);
-
-			d3.json("https://raw.githubusercontent.com/StatistikStadtZuerich/sszvis/master/geodata/ch_cantons.json")
-				.then(actions.prepareMapData)
-				.catch(sszvis.loadError);
-
-			// Render
-			// -----------------------------------------------
-			function render(state) {
-				if (state.data === null || state.mapData === null) {
-					// loading ...
-					return true;
-				}
-
-				var props = queryProps(sszvis.measureDimensions("#sszvis-chart"));
-				var bounds = sszvis.bounds(props.bounds, "#sszvis-chart");
-
-				// Scales
-
-				var colorScale = sszvis.scaleDivNtrGry().domain(state.valueDomain);
-
-				// Layers
-
-				var chartLayer = sszvis
-					.createSvgLayer("#sszvis-chart", bounds)
-					.datum(state.data);
-
-				// Components
-
-				var choroplethMap = sszvis
-					.choropleth()
-					.features(state.mapData.features)
-					.borders(state.mapData.borders)
-					.width(bounds.innerWidth)
-					.height(bounds.innerHeight)
-					.fill(sszvis.compose(colorScale, vAcc))
-					.defined(sszvis.compose(sszvis.not(isNaN), vAcc));
-
-				var legend = sszvis
-					.legendColorLinear()
-					.scale(colorScale)
-					.width(props.legendWidth)
-					.labelText(["Frauen", "Männer"]);
-
-				// Rendering
-
-				chartLayer
-					.attr(
-						"transform",
-						sszvis.translateString(bounds.padding.left, bounds.padding.top)
-					)
-					.call(choroplethMap);
-
-				chartLayer
-					.selectGroup("legend")
-					.attr(
-						"transform",
-						sszvis.translateString(
-							bounds.width / 2 - props.legendWidth / 2,
-							bounds.innerHeight + 25
-						)
-					)
-					.call(legend);
-
-				sszvis.viewport.on("resize", actions.resize);
-			}
-		})(d3, topojson, sszvis);
 	</script>
 
 </body>
