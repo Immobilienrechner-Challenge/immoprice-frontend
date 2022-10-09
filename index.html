@@ -5,96 +5,255 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	<head>
-		<title>Hyperspace by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
 
-		<!-- Sidebar -->
-			<section id="sidebar">
-				<div class="inner">
-					<nav>
-						<ul>
-							<li><a href="#intro">Start</a></li>
-							<li><a href="#one">Ortschaft</a></li>
-							<li><a href="#two">Eigenschaften</a></li>
-							<li><a href="#three">Berechnen</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
+<head>
+	<title>Hyperspace by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<!-- SSZVIS Library -->
+	<link rel="stylesheet" href="assets/css/sszvis.css" />
+</head>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+<body class="is-preload">
 
-				<!-- Intro -->
-					<section id="intro" class="wrapper style2 fullscreen fade-up">
-						<div class="inner">
-							<h1>Immoprice</h1>
-							<p>Ein Projekt des Studiengangs B.Sc. Data Science der Fachhochschule Nordwestschweiz<br/>
-								Mit dieser Seite wird es möglich sein, einen Preisvorschlag für eine Immobilie zu machen.</p>
-							<ul class="actions">
-								<li><a href="https://github.com/Immobilienrechner-Challenge" class="button scrolly">GitHub zur Challenge</a></li>
-							</ul>
-						</div>
-					</section>
+	<!-- Sidebar -->
+	<section id="sidebar">
+		<div class="inner">
+			<nav>
+				<ul>
+					<li><a href="#intro">Start</a></li>
+					<li><a href="#one">Ortschaft</a></li>
+					<li><a href="#two">Eigenschaften</a></li>
+					<li><a href="#three">Berechnen</a></li>
+				</ul>
+			</nav>
+		</div>
+	</section>
 
-				<!-- One -->
-					<section id="one" class="wrapper style2 fullscreen fade-up">
-						<div class="inner">
-							<h2>Ortschaft auswählen</h2>
-							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>
-						</div>
-					</section>
+	<!-- Wrapper -->
+	<div id="wrapper">
 
-				<!-- Two -->
-					<section id="two" class="wrapper style2 fullscreen fade-up">
-						<div class="inner">
-							<h2>Eigenschaften konfigurieren</h2>
-							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>
-						</div>
-					</section>
-
-				<!-- Three -->
-					<section id="three" class="wrapper style3 fullscreen fade-up">
-						<div class="inner">
-							<h2>Vorhersage generieren</h2>
-							<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus.</p>
-							<ul class="actions">
-								<li><a href="generic.html" class="button">Learn more</a></li>
-							</ul>
-						</div>
-					</section>
-
+		<!-- Intro -->
+		<section id="intro" class="wrapper style2 fullscreen fade-up">
+			<div class="inner">
+				<h1>Immoprice</h1>
+				<p>Ein Projekt des Studiengangs B.Sc. Data Science der Fachhochschule Nordwestschweiz<br />
+					Mit dieser Seite wird es möglich sein, einen Preisvorschlag für eine Immobilie zu machen.</p>
+				<ul class="actions">
+					<li><a href="https://github.com/Immobilienrechner-Challenge" class="button scrolly">GitHub zur
+							Challenge</a></li>
+				</ul>
 			</div>
+		</section>
 
-		<!-- Footer -->
-			<footer id="footer" class="wrapper style1-alt">
-				<div class="inner">
-					<ul class="menu">
-						<li>&copy; Immoprice.ch | Ein Projekt des Studiengangs B.Sc. Data Science der Fachhochschule Nordwestschweiz</li><li>Website Template: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul>
-				</div>
-			</footer>
+		<!-- One -->
+		<section id="one" class="wrapper style2 fullscreen fade-up">
+			<div class="inner">
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+				<div id="sszvis-chart"></div>
 
-	</body>
+				<h2>Ortschaft auswählen</h2>
+				<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat
+					malesuada quis. Aliquam dapibus.</p>
+				<ul class="actions">
+					<li><a href="generic.html" class="button">Learn more</a></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Two -->
+		<section id="two" class="wrapper style2 fullscreen fade-up">
+			<div class="inner">
+				<h2>Eigenschaften konfigurieren</h2>
+				<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat
+					malesuada quis. Aliquam dapibus.</p>
+				<ul class="actions">
+					<li><a href="generic.html" class="button">Learn more</a></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Three -->
+		<section id="three" class="wrapper style3 fullscreen fade-up">
+			<div class="inner">
+				<h2>Vorhersage generieren</h2>
+				<p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat
+					malesuada quis. Aliquam dapibus.</p>
+				<ul class="actions">
+					<li><a href="generic.html" class="button">Learn more</a></li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper style1-alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; Immoprice.ch | Ein Projekt des Studiengangs B.Sc. Data Science der Fachhochschule
+					Nordwestschweiz</li>
+				<li>Website Template: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<!-- SSZVIS Library -->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
+	<script src="assets/js/sszvis.js"></script>
+
+	<script>
+		(function (d3, topojson, sszvis) {
+			"use strict";
+
+			// Configuration
+			// -----------------------------------------------
+
+			var MAX_LEGEND_WIDTH = 320;
+			var queryProps = sszvis
+				.responsiveProps()
+				.prop("bounds", {
+					_: function _(width) {
+						var innerHeight = Math.min(sszvis.aspectRatio4to3(width), 400);
+						return {
+							bottom: 40,
+							height: innerHeight + 40,
+						};
+					},
+				})
+				.prop("legendWidth", {
+					_: function _(width) {
+						return Math.min(width / 2, MAX_LEGEND_WIDTH);
+					},
+				});
+
+			function parseRow(d) {
+				return {
+					geoId: sszvis.parseNumber(d["KantonNr"]),
+					value: sszvis.parseNumber(d["Wert"]),
+				};
+			}
+
+			var vAcc = sszvis.prop("value");
+
+			// Application state
+			// -----------------------------------------------
+			var state = {
+				data: null,
+				mapData: null,
+				valueDomain: [0, 0],
+			};
+
+			// State transitions
+			// -----------------------------------------------
+			var actions = {
+				prepareState: function prepareState(data) {
+					state.data = data;
+					state.valueDomain = [0, d3.max(state.data, vAcc)];
+
+					render(state);
+				},
+
+				prepareMapData: function prepareMapData(topo) {
+					state.mapData = {
+						features: topojson.feature(topo, topo.objects.cantons),
+						borders: topojson.mesh(topo, topo.objects.cantons),
+					};
+
+					render(state);
+				},
+
+				resize: function resize() {
+					render(state);
+				},
+			};
+
+			// Data initialization
+			// -----------------------------------------------
+			d3.csv("assets/data/data.csv", parseRow)
+				.then(actions.prepareState)
+				.catch(sszvis.loadError);
+
+			d3.json("assets/json/switzerland.json")
+				.then(actions.prepareMapData)
+				.catch(sszvis.loadError);
+
+			// Render
+			// -----------------------------------------------
+			function render(state) {
+				if (state.data === null || state.mapData === null) {
+					// loading ...
+					return true;
+				}
+
+				var props = queryProps(sszvis.measureDimensions("#sszvis-chart"));
+				var bounds = sszvis.bounds(props.bounds, "#sszvis-chart");
+
+				// Scales
+
+				var colorScale = sszvis.scaleDivNtrGry().domain(state.valueDomain);
+
+				// Layers
+
+				var chartLayer = sszvis
+					.createSvgLayer("#sszvis-chart", bounds)
+					.datum(state.data);
+
+				// Components
+
+				var choroplethMap = sszvis
+					.choropleth()
+					.features(state.mapData.features)
+					.borders(state.mapData.borders)
+					.width(bounds.innerWidth)
+					.height(bounds.innerHeight)
+					.fill(sszvis.compose(colorScale, vAcc))
+					.defined(sszvis.compose(sszvis.not(isNaN), vAcc));
+
+				var legend = sszvis
+					.legendColorLinear()
+					.scale(colorScale)
+					.width(props.legendWidth)
+					.labelText(["Frauen", "Männer"]);
+
+				// Rendering
+
+				chartLayer
+					.attr(
+						"transform",
+						sszvis.translateString(bounds.padding.left, bounds.padding.top)
+					)
+					.call(choroplethMap);
+
+				chartLayer
+					.selectGroup("legend")
+					.attr(
+						"transform",
+						sszvis.translateString(
+							bounds.width / 2 - props.legendWidth / 2,
+							bounds.innerHeight + 25
+						)
+					)
+					.call(legend);
+
+				sszvis.viewport.on("resize", actions.resize);
+			}
+		})(d3, topojson, sszvis);
+	</script>
+
+</body>
+
 </html>
