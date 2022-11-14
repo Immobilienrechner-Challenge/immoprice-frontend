@@ -26,6 +26,7 @@
 				<ul>
 					<li><a href="#intro">Start</a></li>
 					<li><a href="#one">Berechnen</a></li>
+					<li><a id="results-button" href="#results">Ergebnisse</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -120,6 +121,7 @@
 	<!-- Website Logic -->
 	<script type="text/javascript">
 		$("#results").hide();
+		$("#results-button").hide();
 
 		$("#submit").click(async (event) => {
 			var living_space = $('#living_space').val();
@@ -135,7 +137,8 @@
 					data = JSON.parse(data);
 					$('#predicted-price').text(Math.round(data['prediction']));
 					$("#results").show();
-					document.location.href = "#results";
+					$("#results-button").slideDown(1000);
+					$("#results-button").click();
 				},
 				error: function (data) {
 					alert('Check inputs!');
