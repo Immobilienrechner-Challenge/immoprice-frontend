@@ -63,8 +63,27 @@
 						<div class="col-xs-12 col-md-6">
 							<label class="title">Immobilientyp</label>
 							<select name="type" id="type">
-								<option value="flat">Flat</option>
+								<option value="flat" selected>Wohnung</option>
+								<option value="penthouse">Penthouse</option>
+								<option value="terrace-house">Terrassenhaus</option>
+								<option value="detached-house">Einfamilienhaus</option>
+								<option value="stepped-house">gestuftes Haus</option>
+								<option value="farmhouse">Bauernhaus</option>
+								<option value="semi-detached-house">Doppelhaushälfte</option>
+								<option value="stepped-apartment">gestufte Wohnung</option>
+								<option value="duplex-maisonette">Duplex-Maisonette</option>
+								<option value="attic-flat">Dachwohnung</option>
+								<option value="attic-room">Dachzimmer</option>
+								<option value="loft">Loft</option>
+								<option value="chalet">Chalet</option>
 								<option value="villa">Villa</option>
+								<option value="secondary-suite">Zweithaus</option>
+								<option value="castle">Schloss</option>
+								<option value="detached-secondary-suite">Einzeln stehendes Zweithaus</option>
+								<option value="studio">Studio</option>
+								<option value="furnished-residential-property">Möblierte Wohnungen</option>
+								<option value="rustico">Rustico</option>
+								<option value="single-room">Einzelzimmer</option>
 							</select>
 							<br />
 						</div>
@@ -79,6 +98,11 @@
 							<label class="title">Steuernsatz</label>
 							<input type="text" id="tax" name="tax">
 							<br />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<p id="warning" style="color: red;"></p>
 						</div>
 					</div>
 					<div>
@@ -122,29 +146,66 @@
 	<script type="text/javascript">
 		$("#results").hide();
 		$("#results-button").hide();
+		$("#warning").hide();
 
 		$("#submit").click(async (event) => {
-			var living_space = $('#living_space').val();
-			var type = $('#type').val();
-			var rooms = $('#rooms').val();
-			var gde_tax = $('#tax').val();
-			var url = `https://api.immoprice.ch/model1/?living_space=${living_space}&type=${type}&rooms=${rooms}&gde_tax=${gde_tax}`;
+			if (validateInput()) {
+				var living_space = $('#living_space').val();
+				var type = $('#type').val();
+				var rooms = $('#rooms').val();
+				var gde_tax = $('#tax').val();
+				var url = `https://api.immoprice.ch/model1/?living_space=${living_space}&type=${type}&rooms=${rooms}&gde_tax=${gde_tax}`;
 
-			$.ajax({
-				url: url,
-				type: 'GET',
-				success: function (data) {
-					data = JSON.parse(data);
-					$('#predicted-price').text(Math.round(data['prediction']));
-					$("#results").show();
-					$("#results-button").slideDown(1000);
-					$("#results-button").click();
-				},
-				error: function (data) {
-					alert('Check inputs!');
-				}
-			});
+				$.ajax({
+					url: url,
+					type: 'GET',
+					success: function (data) {
+						data = JSON.parse(data);
+						$('#predicted-price').text(Math.round(data['prediction']));
+						$("#results").show();
+						$("#results-button").show();
+						$("#results-button").click();
+					},
+					error: function (xhr, status, error) {
+						if (xhr.status == 500) {
+							$("#warning").text("Bitte geben Sie gültige Werte ein.");
+						} else {
+							$("#warning").text("Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.");
+						}
+						$("#results").hide();
+						$("#results-button").hide();
+						$("#warning").slideDown(800);
+					}
+				});
+			}
 		});
+
+		function validateInput() {
+			error = false;
+			if ($('#living_space').val() == "" || isNaN($('#living_space').val())) {
+				$('#living_space').css("border", "1px solid red");
+				error = true;
+			}
+			if ($('#rooms').val() == "" || isNaN($('#rooms').val())) {
+				$('#rooms').css("border", "1px solid red");
+				error = true;
+			}
+			if ($('#tax').val() == "" || isNaN($('#tax').val())) {
+				$('#tax').css("border", "1px solid red");
+				error = true;
+			}
+			if (error) {
+				$("#warning").text("Bitte geben Sie gültige Werte ein.");
+				$("#warning").slideDown(800);
+				$("#results").hide();
+				$("#results-button").hide();
+			} else {
+				$('input').css("border", "1px solid rgba(255, 255, 255, 0.15)");
+				$("#warning").text("");
+				$("#warning").hide();
+			}
+			return !error;
+		}
 	</script>
 
 </body>
