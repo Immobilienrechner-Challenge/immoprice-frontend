@@ -8,12 +8,12 @@
 
 <head>
 	<title>Immoprice CH</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/main.css">
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
+		<link rel="stylesheet" href="assets/css/noscript.css">
 	</noscript>
 </head>
 
@@ -39,7 +39,7 @@
 		<section id="intro" class="wrapper style2 fullscreen fade-up">
 			<div class="inner">
 				<h1>Immoprice</h1>
-				<p>Ein Projekt des Studiengangs B.Sc. Data Science der Fachhochschule Nordwestschweiz<br />
+				<p>Ein Projekt des Studiengangs B.Sc. Data Science der Fachhochschule Nordwestschweiz<br>
 					Mit dieser Seite wird es möglich sein, einen Preisvorschlag für eine Immobilie zu machen.</p>
 				<ul class="actions">
 					<li><a href="https://github.com/Immobilienrechner-Challenge" class="button scrolly">GitHub zur
@@ -52,19 +52,27 @@
 		<section id="one" class="wrapper style2 fullscreen fade-up">
 			<div class="inner">
 				<h2>Eingabe der Informationen</h2>
-				<p>Bitte geben Sie hier die Informationen zu ihrer Immobilie ein, um eine Vorhersage zu erhalten.</p>
+				<p>Bitte geben Sie hier die Informationen zu Ihrer Immobilie ein, um eine Preisvorhersage zu erhalten.
+				</p>
 				<div id="api-inputs">
 					<div class="row">
 						<div class="col-xs-12 col-md-6">
 							<label class="title">Wohnraum in m^2</label>
 							<input type="text" id="living_space" name="living_space">
-							<br />
+							<br>
 						</div>
 						<div class="col-xs-12 col-md-6">
 							<label class="title">Immobilientyp</label>
 							<select name="type" id="type">
 								<option value="flat" selected>Wohnung</option>
+								<option value="single-room">Einzelzimmer</option>
+								<option value="studio">Studio</option>
 								<option value="penthouse">Penthouse</option>
+								<option value="attic-flat">Dachwohnung</option>
+								<option value="attic-room">Dachzimmer</option>
+								<option value="loft">Loft</option>¨
+								<option value="chalet">Chalet</option>
+								<option value="villa">Villa</option>
 								<option value="terrace-house">Terrassenhaus</option>
 								<option value="detached-house">Einfamilienhaus</option>
 								<option value="stepped-house">gestuftes Haus</option>
@@ -72,32 +80,25 @@
 								<option value="semi-detached-house">Doppelhaushälfte</option>
 								<option value="stepped-apartment">gestufte Wohnung</option>
 								<option value="duplex-maisonette">Duplex-Maisonette</option>
-								<option value="attic-flat">Dachwohnung</option>
-								<option value="attic-room">Dachzimmer</option>
-								<option value="loft">Loft</option>
-								<option value="chalet">Chalet</option>
-								<option value="villa">Villa</option>
 								<option value="secondary-suite">Zweithaus</option>
 								<option value="castle">Schloss</option>
 								<option value="detached-secondary-suite">Einzeln stehendes Zweithaus</option>
-								<option value="studio">Studio</option>
 								<option value="furnished-residential-property">Möblierte Wohnungen</option>
 								<option value="rustico">Rustico</option>
-								<option value="single-room">Einzelzimmer</option>
 							</select>
-							<br />
+							<br>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-md-6">
 							<label class="title">Anzahl Räume</label>
 							<input type="text" id="rooms" name="rooms">
-							<br />
+							<br>
 						</div>
 						<div class="col-xs-12 col-md-6">
 							<label class="title">Steuernsatz</label>
 							<input type="text" id="tax" name="tax">
-							<br />
+							<br>
 						</div>
 					</div>
 					<div class="row">
