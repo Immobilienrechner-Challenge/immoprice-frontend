@@ -41,7 +41,8 @@
 			<div class="inner">
 				<h1>Immoprice</h1>
 				<p>Ein Projekt des Studiengangs B.Sc. Data Science der Fachhochschule Nordwestschweiz<br>
-					Mit dieser Seite wird es möglich sein, einen Preisvorschlag für eine Immobilie zu machen.</p>
+					Mit dieser Seite ist es möglich, einen Preisvorschlag für eine Immobilie zu machen.<br>
+					Wir übernehmen keine Haft für jegliche Vorhersagen.</p>
 				<ul class="actions">
 					<li><a href="https://github.com/Immobilienrechner-Challenge" class="button scrolly">GitHub zur
 							Challenge</a></li>
@@ -106,6 +107,9 @@
 						<div class="col-md-12">
 							<p id="warning" style="color: red;"></p>
 						</div>
+					</div>
+					<div>
+						<input type="submit" id="continueButton" name="continueButton" value="Fortfahren">
 					</div>
 				</div>
 			</div>
@@ -190,6 +194,11 @@
 		$("#results").hide();
 		$("#results-button").hide();
 		$("#warning").hide();
+		$("#warning2").hide();
+
+		$("#continueButton").click(async (event) => {
+			$("#two-button").click();
+		});
 
 		$("#submit").click(async (event) => {
 			if (validateInput()) {
