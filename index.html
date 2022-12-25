@@ -96,8 +96,8 @@
 							<br>
 						</div>
 						<div class="col-xs-12 col-md-6">
-							<label class="title">Steuernsatz</label>
-							<input type="text" id="tax" name="tax">
+							<label class="title">Postleitzahl</label>
+							<input type="text" id="zip_code" name="zip_code">
 							<br>
 						</div>
 					</div>
@@ -154,8 +154,8 @@
 				var living_space = $('#living_space').val();
 				var type = $('#type').val();
 				var rooms = $('#rooms').val();
-				var gde_tax = $('#tax').val();
-				var url = `https://api.immoprice.ch/model1/?living_space=${living_space}&type=${type}&rooms=${rooms}&gde_tax=${gde_tax}`;
+				var zip_code = $('#zip_code').val();
+				var url = `http://api.immoprice.ch/model1/?living_space=${living_space}&type=${type}&rooms=${rooms}&zip_code=${zip_code}`;
 
 				$.ajax({
 					url: url,
@@ -191,8 +191,8 @@
 				$('#rooms').css("border", "1px solid red");
 				error = true;
 			}
-			if ($('#tax').val() == "" || isNaN($('#tax').val())) {
-				$('#tax').css("border", "1px solid red");
+			if ($('#zip_code').val() == "" || isNaN($('#zip_code').val())) {
+				$('#zip_code').css("border", "1px solid red");
 				error = true;
 			}
 			if (error) {
